@@ -1,0 +1,67 @@
+<view class="page-container">
+  <!-- 搜索条件摘要 -->
+  <view class="search-summary">
+    <view class="summary-left">
+      <text class="summary-label">搜索条件</text>
+      <view class="summary-tags">
+        <text class="summary-tag" wx:for="{{ingredients}}" wx:key="*this">{{item}}</text>
+        <text class="summary-tag cookware" wx:for="{{cookware}}" wx:key="*this">{{item}}</text>
+      </view>
+    </view>
+    <text class="summary-count">找到 <text class="count-num">{{totalCount}}</text> 道菜</text>
+  </view>
+
+  <!-- 加载中 -->
+  <view class="loading-state" wx:if="{{loading}}">
+    <view class="loading-spinner"></view>
+    <text>正在搜索菜谱...</text>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{empty}}">
+    <text class="empty-icon">🍳</text>
+    <text class="empty-title">没有找到匹配的菜谱</text>
+    <text class="empty-desc">试试减少选择条件，或换一些食材</text>
+    <view class="empty-actions">
+      <view class="btn-primary" bindtap="goBack">重新选择</view>
+      <view class="btn-secondary" bindtap="viewAll">查看全部菜谱</view>
+    </view>
+  </view>
+
+  <!-- 菜谱列表 -->
+  <view class="recipe-list" wx:if="{{!loading && !empty}}">
+    <view class="recipe-card" wx:for="{{recipes}}" wx:key="id" bindtap="goToDetail" data-id="{{item.id}}">
+      <!-- 匹配度标签 -->
+      <view class="match-badge {{item.matchRate >= 80 ? 'match-high' : item.matchRate >= 50 ? 'match-mid' : 'match-low'}}">
+        匹配 {{item.matchRate}}%
+      </view>
+      <!-- 菜谱信息 -->
+      <view class="recipe-info">
+        <text class="recipe-name">{{item.name}}</text>
+        <text class="recipe-desc">{{item.description}}</text>
+        <view class="recipe-meta">
+          <text class="meta-item">
+            <text class="meta-icon">⏱</text>{{item.cookTime}}
+          </text>
+          <text class="meta-item">
+            <text class="meta-icon">📊</text>{{item.difficulty}}
+          </text>
+          <text class="meta-item">
+            <text class="meta-icon">🍽</text>{{item.servings}}
+          </text>
+        </view>
+        <view class="recipe-ingredients">
+          <text class="ing-tag" wx:for="{{item.ingredients}}" wx:for-item="ing" wx:key="name" wx:if="{{index < 5}}">{{ing.name}}</text>
+          <text class="ing-more" wx:if="{{item.ingredients.length > 5}}">+{{item.ingredients.length - 5}}</text>
+        </view>
+      </view>
+      <!-- 箭头 -->
+      <text class="card-arrow">›</text>
+    </view>
+  </view>
+
+  <!-- 底部提示 -->
+  <view class="list-footer" wx:if="{{!loading && !empty && recipes.length > 0}}">
+    <text>共 {{totalCount}} 道菜谱</text>
+  </view>
+</view>

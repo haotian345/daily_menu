@@ -1,0 +1,97 @@
+<view class="page-container">
+  <!-- 顶部Banner -->
+  <view class="banner">
+    <view class="banner-content">
+      <text class="banner-title">今天吃什么？</text>
+      <text class="banner-subtitle">选食材、挑锅具，发现美味食谱</text>
+    </view>
+    <view class="banner-random" bindtap="randomRecommend">
+      <text class="random-icon">🎲</text>
+      <text class="random-text">随机推荐</text>
+    </view>
+  </view>
+
+  <!-- 已选食材和锅具 -->
+  <view class="selection-bar" wx:if="{{hasSelection}}">
+    <view class="selection-header">
+      <text class="selection-title">已选择</text>
+      <text class="selection-clear" bindtap="clearAll">清空</text>
+    </view>
+    <view class="selection-tags">
+      <view class="sel-tag" wx:for="{{selectedIngredients}}" wx:key="*this">
+        <text>{{item}}</text>
+        <text class="sel-tag-close" bindtap="removeIngredient" data-name="{{item}}">✕</text>
+      </view>
+      <view class="sel-tag cookware-tag" wx:for="{{selectedCookware}}" wx:key="*this">
+        <text>{{item}}</text>
+        <text class="sel-tag-close" bindtap="removeCookware" data-name="{{item}}">✕</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 食材选择区 -->
+  <view class="section">
+    <view class="section-title">选择食材</view>
+    <view class="ingredient-area">
+      <!-- 左侧分类 -->
+      <scroll-view class="category-nav" scroll-y>
+        <view
+          class="category-item {{activeCategory === index ? 'category-active' : ''}}"
+          wx:for="{{ingredientCategories}}"
+          wx:key="name"
+          bindtap="switchCategory"
+          data-index="{{index}}"
+        >
+          <text class="category-icon">{{item.icon}}</text>
+          <text class="category-name">{{item.name}}</text>
+        </view>
+      </scroll-view>
+      <!-- 右侧食材列表 -->
+      <scroll-view class="ingredient-list" scroll-y>
+        <view class="ingredient-grid">
+          <view
+            class="ingredient-chip {{selectedIngredients.indexOf(item) > -1 ? 'chip-active' : ''}}"
+            wx:for="{{ingredientCategories[activeCategory].items}}"
+            wx:key="*this"
+            wx:for-item="item"
+            bindtap="toggleIngredient"
+            data-name="{{item}}"
+          >
+            <text>{{item}}</text>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+
+  <!-- 锅具选择区 -->
+  <view class="section">
+    <view class="section-title">选择锅具</view>
+    <view class="cookware-grid">
+      <view
+        class="cookware-item {{selectedCookware.indexOf(item.name) > -1 ? 'cookware-active' : ''}}"
+        wx:for="{{cookwareList}}"
+        wx:key="name"
+        bindtap="toggleCookware"
+        data-name="{{item.name}}"
+      >
+        <text class="cookware-icon">{{item.icon}}</text>
+        <text class="cookware-name">{{item.name}}</text>
+        <view class="cookware-check" wx:if="{{selectedCookware.indexOf(item.name) > -1}}">✓</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部搜索按钮 -->
+  <view class="bottom-bar">
+    <view class="search-btn {{hasSelection ? '' : 'search-btn-disabled'}}" bindtap="searchRecipes">
+      <text class="search-btn-text">{{hasSelection ? '查看能做的菜' : '请选择食材或锅具'}}</text>
+      <text class="search-btn-count" wx:if="{{hasSelection}}">
+        {{selectedIngredients.length}}种食材 · {{selectedCookware.length}}种锅具
+      </text>
+    </view>
+  </view>
+
+  <!-- 底部占位 -->
+  <view class="bottom-placeholder"></view>
+</view>

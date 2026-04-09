@@ -1,0 +1,290 @@
+/* 首页样式 - 暖色美食风 */
+.page-container {
+  min-height: 100vh;
+  background: #FFF8F0;
+  padding-bottom: 40rpx;
+}
+
+/* Banner区域 */
+.banner {
+  background: linear-gradient(135deg, #FF6B35, #FF8C42, #FFA62B);
+  padding: 40rpx 30rpx 30rpx;
+  border-radius: 0 0 40rpx 40rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.banner-content {
+  flex: 1;
+}
+
+.banner-title {
+  display: block;
+  font-size: 44rpx;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-bottom: 8rpx;
+}
+
+.banner-subtitle {
+  display: block;
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.banner-random {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 16rpx 24rpx;
+  border-radius: 20rpx;
+  border: 2rpx solid rgba(255, 255, 255, 0.3);
+}
+
+.random-icon {
+  font-size: 40rpx;
+  margin-bottom: 4rpx;
+}
+
+.random-text {
+  font-size: 22rpx;
+  color: #FFFFFF;
+}
+
+/* 已选标签栏 */
+.selection-bar {
+  margin: 20rpx 24rpx;
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  padding: 20rpx 24rpx;
+  box-shadow: 0 4rpx 16rpx rgba(255, 107, 53, 0.08);
+}
+
+.selection-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.selection-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #FF6B35;
+}
+
+.selection-clear {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.selection-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+}
+
+.sel-tag {
+  display: flex;
+  align-items: center;
+  padding: 8rpx 20rpx;
+  background: linear-gradient(135deg, #FF6B35, #FFA62B);
+  color: #FFFFFF;
+  border-radius: 24rpx;
+  font-size: 24rpx;
+}
+
+.cookware-tag {
+  background: linear-gradient(135deg, #4CAF50, #66BB6A);
+}
+
+.sel-tag-close {
+  margin-left: 10rpx;
+  font-size: 22rpx;
+  opacity: 0.8;
+  padding: 4rpx;
+}
+
+/* 区块标题 */
+.section {
+  margin: 20rpx 24rpx;
+}
+
+/* 食材选择区 */
+.ingredient-area {
+  display: flex;
+  height: 400rpx;
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  overflow: hidden;
+  box-shadow: 0 4rpx 16rpx rgba(255, 107, 53, 0.08);
+}
+
+.category-nav {
+  width: 160rpx;
+  background: #FFF5ED;
+  border-radius: 20rpx 0 0 20rpx;
+}
+
+.category-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20rpx 0;
+  position: relative;
+}
+
+.category-item.category-active {
+  background: #FFFFFF;
+}
+
+.category-item.category-active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6rpx;
+  height: 40rpx;
+  background: #FF6B35;
+  border-radius: 0 3rpx 3rpx 0;
+}
+
+.category-icon {
+  font-size: 36rpx;
+  margin-bottom: 4rpx;
+}
+
+.category-name {
+  font-size: 22rpx;
+  color: #666;
+}
+
+.category-active .category-name {
+  color: #FF6B35;
+  font-weight: 600;
+}
+
+.ingredient-list {
+  flex: 1;
+  padding: 20rpx;
+}
+
+.ingredient-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+
+.ingredient-chip {
+  padding: 12rpx 24rpx;
+  background: #FFF5ED;
+  border: 2rpx solid #FFD4BC;
+  border-radius: 28rpx;
+  font-size: 26rpx;
+  color: #666;
+  transition: all 0.2s;
+}
+
+.ingredient-chip.chip-active {
+  background: linear-gradient(135deg, #FF6B35, #FFA62B);
+  color: #FFFFFF;
+  border-color: transparent;
+  font-weight: 600;
+  box-shadow: 0 4rpx 12rpx rgba(255, 107, 53, 0.3);
+}
+
+/* 锅具选择区 */
+.cookware-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+
+.cookware-item {
+  width: calc(20% - 13rpx);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20rpx 0;
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  border: 2rpx solid #FFE8D6;
+  position: relative;
+  box-shadow: 0 2rpx 8rpx rgba(255, 107, 53, 0.05);
+}
+
+.cookware-item.cookware-active {
+  background: linear-gradient(135deg, #FF6B35, #FFA62B);
+  border-color: transparent;
+  box-shadow: 0 4rpx 16rpx rgba(255, 107, 53, 0.3);
+}
+
+.cookware-icon {
+  font-size: 40rpx;
+  margin-bottom: 8rpx;
+}
+
+.cookware-name {
+  font-size: 22rpx;
+  color: #666;
+}
+
+.cookware-active .cookware-name {
+  color: #FFFFFF;
+  font-weight: 600;
+}
+
+.cookware-check {
+  position: absolute;
+  top: 6rpx;
+  right: 10rpx;
+  font-size: 20rpx;
+  color: #FFFFFF;
+  font-weight: 700;
+}
+
+/* 底部搜索按钮 */
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20rpx 30rpx;
+  padding-bottom: calc(20rpx + env(safe-area-inset-bottom));
+  background: linear-gradient(to top, #FFF8F0 80%, transparent);
+  z-index: 100;
+}
+
+.search-btn {
+  background: linear-gradient(135deg, #FF6B35, #FFA62B);
+  border-radius: 50rpx;
+  padding: 28rpx;
+  text-align: center;
+  box-shadow: 0 8rpx 24rpx rgba(255, 107, 53, 0.35);
+}
+
+.search-btn-disabled {
+  background: #FFD4BC;
+  box-shadow: none;
+}
+
+.search-btn-text {
+  display: block;
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.search-btn-count {
+  display: block;
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.85);
+  margin-top: 4rpx;
+}
+
+.bottom-placeholder {
+  height: 160rpx;
+}

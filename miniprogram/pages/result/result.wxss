@@ -1,0 +1,253 @@
+/* 结果页样式 */
+.page-container {
+  min-height: 100vh;
+  background: #FFF8F0;
+  padding-bottom: 40rpx;
+}
+
+/* 搜索摘要 */
+.search-summary {
+  background: linear-gradient(135deg, #FF6B35, #FFA62B);
+  padding: 24rpx 30rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.summary-left {
+  flex: 1;
+}
+
+.summary-label {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.8);
+  display: block;
+  margin-bottom: 10rpx;
+}
+
+.summary-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8rpx;
+}
+
+.summary-tag {
+  background: rgba(255, 255, 255, 0.25);
+  color: #FFFFFF;
+  padding: 4rpx 16rpx;
+  border-radius: 16rpx;
+  font-size: 22rpx;
+}
+
+.summary-tag.cookware {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.summary-count {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.9);
+  white-space: nowrap;
+  margin-left: 20rpx;
+}
+
+.count-num {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+/* 加载状态 */
+.loading-state {
+  text-align: center;
+  padding: 120rpx 0;
+  color: #999;
+}
+
+.loading-spinner {
+  width: 60rpx;
+  height: 60rpx;
+  border: 4rpx solid #FFD4BC;
+  border-top: 4rpx solid #FF6B35;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 20rpx;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* 空状态 */
+.empty-state {
+  text-align: center;
+  padding: 100rpx 40rpx;
+}
+
+.empty-icon {
+  font-size: 80rpx;
+  display: block;
+  margin-bottom: 20rpx;
+}
+
+.empty-title {
+  display: block;
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 12rpx;
+}
+
+.empty-desc {
+  display: block;
+  font-size: 26rpx;
+  color: #999;
+  margin-bottom: 40rpx;
+}
+
+.empty-actions {
+  display: flex;
+  gap: 24rpx;
+  justify-content: center;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #FF6B35, #FFA62B);
+  color: #FFFFFF;
+  padding: 16rpx 40rpx;
+  border-radius: 40rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+.btn-secondary {
+  background: #FFFFFF;
+  color: #FF6B35;
+  padding: 16rpx 40rpx;
+  border-radius: 40rpx;
+  font-size: 28rpx;
+  border: 2rpx solid #FF6B35;
+}
+
+/* 菜谱列表 */
+.recipe-list {
+  padding: 20rpx 24rpx;
+}
+
+.recipe-card {
+  display: flex;
+  align-items: center;
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  padding: 28rpx 24rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 4rpx 16rpx rgba(255, 107, 53, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.recipe-card:active {
+  transform: scale(0.98);
+  transition: transform 0.1s;
+}
+
+/* 匹配度标签 */
+.match-badge {
+  position: absolute;
+  top: 0;
+  right: 50rpx;
+  padding: 6rpx 16rpx;
+  border-radius: 0 0 12rpx 12rpx;
+  font-size: 20rpx;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+.match-high {
+  background: linear-gradient(135deg, #FF6B35, #FF8C42);
+}
+
+.match-mid {
+  background: linear-gradient(135deg, #FFA62B, #FFB74D);
+}
+
+.match-low {
+  background: #CCC;
+}
+
+/* 菜谱信息 */
+.recipe-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.recipe-name {
+  display: block;
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #2D2D2D;
+  margin-bottom: 8rpx;
+}
+
+.recipe-desc {
+  display: block;
+  font-size: 24rpx;
+  color: #999;
+  margin-bottom: 14rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.recipe-meta {
+  display: flex;
+  gap: 24rpx;
+  margin-bottom: 14rpx;
+}
+
+.meta-item {
+  font-size: 22rpx;
+  color: #666;
+  display: flex;
+  align-items: center;
+}
+
+.meta-icon {
+  margin-right: 4rpx;
+  font-size: 22rpx;
+}
+
+.recipe-ingredients {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8rpx;
+}
+
+.ing-tag {
+  background: #FFF5ED;
+  color: #FF6B35;
+  padding: 4rpx 14rpx;
+  border-radius: 12rpx;
+  font-size: 20rpx;
+}
+
+.ing-more {
+  background: #F0F0F0;
+  color: #999;
+  padding: 4rpx 14rpx;
+  border-radius: 12rpx;
+  font-size: 20rpx;
+}
+
+.card-arrow {
+  font-size: 40rpx;
+  color: #CCC;
+  margin-left: 16rpx;
+}
+
+/* 底部提示 */
+.list-footer {
+  text-align: center;
+  padding: 30rpx;
+  font-size: 24rpx;
+  color: #CCC;
+}

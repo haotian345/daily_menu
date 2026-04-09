@@ -1,0 +1,17 @@
+<view class="recipe-card" bindtap="onTap">
+  <view class="match-badge {{matchRate >= 80 ? 'high' : matchRate >= 50 ? 'mid' : 'low'}}" wx:if="{{matchRate > 0}}">
+    {{matchRate}}%
+  </view>
+  <view class="card-body">
+    <text class="card-name">{{recipe.name}}</text>
+    <text class="card-desc">{{recipe.description}}</text>
+    <view class="card-meta">
+      <text class="meta-item">⏱ {{recipe.cookTime}}</text>
+      <text class="meta-item">📊 {{recipe.difficulty}}</text>
+    </view>
+    <view class="card-tags">
+      <text class="tag" wx:for="{{recipe.ingredients}}" wx:for-item="ing" wx:key="name" wx:if="{{index < 4}}">{{ing.name}}</text>
+    </view>
+  </view>
+  <text class="card-arrow">›</text>
+</view>
