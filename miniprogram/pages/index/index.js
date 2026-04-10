@@ -76,23 +76,48 @@ Page({
       const db = wx.cloud.database()
       db.collection('recipes').count().then(res => {
         const totalCount = recipesData.length
-        if (res.total >= totalCount) {
-          console.log('数据库已有 ' + res.total + ' 道菜谱')
+        if (res.total === 0) {
+          // 全新导入
+          console.log('开始导入菜谱数据...')
+          const batchSize = 20
+          let chain = Promise.resolve()
+          for (let i = 0; i < totalCount; i += batchSize) {
+            const batch = recipesData.slice(i, i + batchSize)
+            chain = chain.then(() => Promise.all(batch.map(r => db.collection('recipes').add({ data: r }))))
+          }
+          chain.then(() => {
+            console.log('菜谱数据导入完成，共' + totalCount + '道')
+          }).catch(err => {
+            console.warn('菜谱导入失败:', err.message || err)
+          })
           return
         }
-        // 部分导入或全新导入：查出已有菜谱名，只导入缺失的
-        console.log('数据库有 ' + res.total + '/' + totalCount + ' 道，开始补全...')
+
+        // 已有数据：获取全部，修复格式 + 补全缺失
         const batchTimes = Math.ceil(res.total / 100)
-        let existingNames = new Set()
+        let allExisting = []
         let p = Promise.resolve()
         for (let i = 0; i < batchTimes; i++) {
           p = p.then(() => db.collection('recipes').skip(i * 100).limit(100).get()).then(r => {
-            r.data.forEach(d => existingNames.add(d.name))
+            allExisting = allExisting.concat(r.data)
           })
         }
         p.then(() => {
+          // 修复旧格式 steps（字符串 → 对象）
+          const needFix = allExisting.filter(r => r.steps.length > 0 && typeof r.steps[0] === 'string')
+          if (needFix.length > 0) {
+            console.log('修复 ' + needFix.length + ' 道菜谱的 steps 格式')
+            const fixTasks = needFix.map(r => db.collection('recipes').doc(r._id).update({
+              data: { steps: r.steps.map(s => ({ description: s, image: '' })) }
+            }))
+            return Promise.all(fixTasks)
+          }
+        }).then(() => {
+          // 补全缺失菜谱
+          const existingNames = new Set(allExisting.map(r => r.name))
           const toImport = recipesData.filter(r => !existingNames.has(r.name))
           if (toImport.length === 0) return
+          console.log('补全 ' + toImport.length + ' 道缺失菜谱')
           const batchSize = 20
           let chain = Promise.resolve()
           for (let i = 0; i < toImport.length; i += batchSize) {
@@ -101,9 +126,9 @@ Page({
           }
           return chain
         }).then(() => {
-          console.log('菜谱数据补全完成')
+          console.log('菜谱数据同步完成')
         }).catch(err => {
-          console.warn('菜谱导入失败:', err.message || err)
+          console.warn('菜谱同步失败:', err.message || err)
         })
       }).catch(err => {
         console.warn('云数据库未就绪，使用本地数据:', err.message || err)

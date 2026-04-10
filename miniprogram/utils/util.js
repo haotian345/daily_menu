@@ -95,11 +95,7 @@ function filterRecipes(recipes, ingredients, cookware) {
  * @returns {Promise<Array>} 全部数据
  */
 async function getAllCollection(collection, options) {
-  let query = collection
-  if (options && options.orderBy) {
-    query = collection.orderBy(options.orderBy, 'desc')
-  }
-  const countRes = await query.count()
+  const countRes = await collection.count()
   const total = countRes.total
   if (total === 0) return []
 
