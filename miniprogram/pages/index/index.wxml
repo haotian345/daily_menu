@@ -91,8 +91,12 @@
     </view>
   </view>
 
-  <!-- 底部搜索按钮 -->
+  <!-- 底部操作栏 -->
   <view class="bottom-bar">
+    <view class="manage-entry" bindtap="goManage">
+      <text class="manage-icon">⚙️</text>
+      <text class="manage-text">管理</text>
+    </view>
     <view class="search-btn {{hasSelection ? '' : 'search-btn-disabled'}}" bindtap="searchRecipes">
       <text class="search-btn-text">{{hasSelection ? '查看能做的菜' : '请选择食材或锅具'}}</text>
       <text class="search-btn-count" wx:if="{{hasSelection}}">
@@ -103,9 +107,6 @@
 
   <!-- 底部占位 -->
   <view class="bottom-placeholder"></view>
-
-  <!-- 管理入口 -->
-  <view class="admin-entry" bindtap="goManage">管理中心</view>
 
   <!-- 快速添加食材弹窗 -->
   <view class="modal-mask" wx:if="{{showAddIngredient}}" bindtap="hideQuickAddIngredient"></view>

@@ -252,13 +252,41 @@
   bottom: 0;
   left: 0;
   right: 0;
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
   padding: 20rpx 30rpx;
   padding-bottom: calc(20rpx + env(safe-area-inset-bottom));
   background: linear-gradient(to top, #FFF8F0 80%, transparent);
   z-index: 100;
 }
 
+.manage-entry {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 120rpx;
+  height: 100rpx;
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  border: 2rpx solid #FFE8D6;
+  flex-shrink: 0;
+}
+
+.manage-icon {
+  font-size: 32rpx;
+  margin-bottom: 2rpx;
+}
+
+.manage-text {
+  font-size: 22rpx;
+  color: #FF6B35;
+  font-weight: 600;
+}
+
 .search-btn {
+  flex: 1;
   background: linear-gradient(135deg, #FF6B35, #FFA62B);
   border-radius: 50rpx;
   padding: 28rpx;
@@ -287,15 +315,6 @@
 
 .bottom-placeholder {
   height: 160rpx;
-}
-
-/* 初始化入口 */
-.admin-entry {
-  text-align: center;
-  padding: 24rpx;
-  font-size: 24rpx;
-  color: #FF6B35;
-  font-weight: 600;
 }
 
 /* 快速添加按钮样式 */
