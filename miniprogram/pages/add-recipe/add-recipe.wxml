@@ -1,0 +1,97 @@
+<view class="page-container">
+  <!-- 基本信息 -->
+  <view class="section-card">
+    <view class="section-title">基本信息</view>
+
+    <view class="form-group">
+      <text class="form-label">菜谱名称 *</text>
+      <input class="form-input" placeholder="如：红烧肉" value="{{form.name}}" bindinput="onNameInput" />
+    </view>
+
+    <view class="form-row">
+      <view class="form-group form-half">
+        <text class="form-label">分类</text>
+        <picker range="{{categories}}" value="{{categories.indexOf(form.category)}}" bindchange="onCategoryChange">
+          <view class="picker-text">{{form.category}} ▾</view>
+        </picker>
+      </view>
+      <view class="form-group form-half">
+        <text class="form-label">难度</text>
+        <picker range="{{difficulties}}" value="{{difficulties.indexOf(form.difficulty)}}" bindchange="onDifficultyChange">
+          <view class="picker-text">{{form.difficulty}} ▾</view>
+        </picker>
+      </view>
+    </view>
+
+    <view class="form-row">
+      <view class="form-group form-half">
+        <text class="form-label">烹饪时间</text>
+        <picker range="{{cookTimes}}" value="{{cookTimes.indexOf(form.cookTime)}}" bindchange="onCookTimeChange">
+          <view class="picker-text">{{form.cookTime}} ▾</view>
+        </picker>
+      </view>
+      <view class="form-group form-half">
+        <text class="form-label">份量</text>
+        <picker range="{{servingsOptions}}" value="{{servingsOptions.indexOf(form.servings)}}" bindchange="onServingsChange">
+          <view class="picker-text">{{form.servings}} ▾</view>
+        </picker>
+      </view>
+    </view>
+
+    <view class="form-group">
+      <text class="form-label">简介</text>
+      <textarea class="form-textarea" placeholder="简单描述这道菜..." value="{{form.description}}" bindinput="onDescInput" maxlength="200" />
+    </view>
+  </view>
+
+  <!-- 所需锅具 -->
+  <view class="section-card">
+    <view class="section-title">所需锅具</view>
+    <view class="cookware-grid">
+      <view class="cookware-chip {{selectedCookware.indexOf(item.name) > -1 ? 'chip-active' : ''}}"
+        wx:for="{{allCookware}}" wx:key="name" bindtap="toggleCookware" data-name="{{item.name}}">
+        <text class="chip-icon">{{item.icon}}</text>
+        <text>{{item.name}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 食材清单 -->
+  <view class="section-card">
+    <view class="section-header-row">
+      <view class="section-title">食材清单</view>
+      <view class="add-btn" bindtap="addIngredient">+ 添加</view>
+    </view>
+    <view class="ingredient-item" wx:for="{{ingredients}}" wx:key="index">
+      <input class="ing-name-input" placeholder="食材名" value="{{item.name}}" bindinput="onIngNameInput" data-index="{{index}}" />
+      <input class="ing-amount-input" placeholder="用量" value="{{item.amount}}" bindinput="onIngAmountInput" data-index="{{index}}" />
+      <view class="remove-btn" bindtap="removeIngredient" data-index="{{index}}" wx:if="{{ingredients.length > 1}}">✕</view>
+    </view>
+  </view>
+
+  <!-- 烹饪步骤 -->
+  <view class="section-card">
+    <view class="section-header-row">
+      <view class="section-title">烹饪步骤</view>
+      <view class="add-btn" bindtap="addStep">+ 添加</view>
+    </view>
+    <view class="step-item" wx:for="{{steps}}" wx:key="index">
+      <view class="step-num">{{index + 1}}</view>
+      <textarea class="step-input" placeholder="描述这一步的做法..." value="{{item.description}}" bindinput="onStepInput" data-index="{{index}}" auto-height />
+      <view class="remove-btn" bindtap="removeStep" data-index="{{index}}" wx:if="{{steps.length > 1}}">✕</view>
+    </view>
+  </view>
+
+  <!-- 烹饪小贴士 -->
+  <view class="section-card">
+    <view class="section-title">烹饪小贴士</view>
+    <textarea class="form-textarea" placeholder="分享一些烹饪技巧..." value="{{form.tips}}" bindinput="onTipsInput" maxlength="500" />
+  </view>
+
+  <!-- 提交按钮 -->
+  <view class="submit-btn {{submitting ? 'submitting' : ''}}" bindtap="{{submitting ? '' : 'submitRecipe'}}">
+    <text>{{editMode ? '保存修改' : '添加菜谱'}}</text>
+  </view>
+
+  <view style="height: 40rpx;"></view>
+</view>

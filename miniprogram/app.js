@@ -1,11 +1,13 @@
 App({
   onLaunch: function () {
-    if (!wx.cloud) {
-      console.error('请使用 2.2.3 或以上的基础库以使用云能力')
-    } else {
-      wx.cloud.init({
-        traceUser: true
-      })
+    try {
+      if (wx.cloud) {
+        wx.cloud.init({
+          traceUser: true
+        })
+      }
+    } catch (e) {
+      console.warn('云开发初始化失败，使用本地数据:', e)
     }
     this.globalData = {}
   },

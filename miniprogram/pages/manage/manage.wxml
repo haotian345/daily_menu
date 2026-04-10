@@ -1,0 +1,20 @@
+<view class="page-container">
+  <!-- 头部 -->
+  <view class="manage-header">
+    <text class="header-icon">⚙️</text>
+    <text class="header-title">管理中心</text>
+    <text class="header-desc">管理你的自定义食材、锅具和菜谱</text>
+  </view>
+
+  <!-- 功能入口 -->
+  <view class="menu-list">
+    <view class="menu-item" wx:for="{{menuItems}}" wx:key="name" bindtap="navigateTo" data-url="{{item.url}}">
+      <view class="menu-icon">{{item.icon}}</view>
+      <view class="menu-info">
+        <text class="menu-name">{{item.name}}</text>
+        <text class="menu-desc">{{item.desc}}</text>
+      </view>
+      <text class="menu-arrow">›</text>
+    </view>
+  </view>
+</view>

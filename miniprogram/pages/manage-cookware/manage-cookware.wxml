@@ -1,0 +1,59 @@
+<view class="page-container">
+  <!-- 加载中 -->
+  <view class="loading-state" wx:if="{{loading}}">
+    <view class="loading-spinner"></view>
+    <text>加载中...</text>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{!loading && cookwareList.length === 0}}">
+    <text class="empty-icon">🍳</text>
+    <text class="empty-title">暂无自定义锅具</text>
+    <text class="empty-desc">点击下方按钮添加你的锅具</text>
+  </view>
+
+  <!-- 锅具列表 -->
+  <view class="item-list" wx:if="{{!loading && cookwareList.length > 0}}">
+    <view class="list-header">
+      <text class="list-title">我的锅具（{{cookwareList.length}}）</text>
+    </view>
+    <view class="item-card" wx:for="{{cookwareList}}" wx:key="_id">
+      <view class="item-main" bindtap="showEditDialog" data-item="{{item}}">
+        <text class="item-icon">{{item.icon || '🍳'}}</text>
+        <view class="item-info">
+          <text class="item-name">{{item.name}}</text>
+        </view>
+      </view>
+      <view class="item-delete" bindtap="deleteCookware" data-id="{{item._id}}" data-name="{{item.name}}">
+        <text>删除</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 添加按钮 -->
+  <view class="fab-btn" bindtap="showAddDialog">
+    <text class="fab-icon">+</text>
+  </view>
+
+  <!-- 添加/编辑弹窗 -->
+  <view class="modal-mask" wx:if="{{showAdd}}" bindtap="hideAddDialog"></view>
+  <view class="modal-dialog" wx:if="{{showAdd}}">
+    <view class="modal-title">{{editMode ? '编辑锅具' : '添加锅具'}}</view>
+    <view class="form-group">
+      <text class="form-label">选择图标</text>
+      <view class="icon-grid">
+        <view class="icon-item {{selectedIcon === item ? 'icon-active' : ''}}" wx:for="{{iconOptions}}" wx:key="*this" bindtap="selectIcon" data-icon="{{item}}">
+          <text>{{item}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="form-group">
+      <text class="form-label">锅具名称</text>
+      <input class="form-input" placeholder="请输入锅具名称" value="{{form.name}}" bindinput="onNameInput" />
+    </view>
+    <view class="modal-actions">
+      <view class="modal-btn modal-btn-cancel" bindtap="hideAddDialog">取消</view>
+      <view class="modal-btn modal-btn-confirm" bindtap="saveCookware">保存</view>
+    </view>
+  </view>
+</view>

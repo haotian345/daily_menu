@@ -1,0 +1,16 @@
+<view class="container">
+  <view class="init-card">
+    <text class="init-title">数据库初始化</text>
+    <text class="init-status">{{status}}</text>
+
+    <view class="progress-bar" wx:if="{{total > 0 && !done}}">
+      <view class="progress-fill" style="width: {{progress / total * 100}}%"></view>
+    </view>
+    <text class="progress-text" wx:if="{{total > 0}}">{{progress}} / {{total}}</text>
+
+    <view class="init-btn" wx:if="{{done}}" bindtap="goHome">进入首页</view>
+    <view class="init-btn retry-btn" wx:if="{{error}}" bindtap="retry">重试</view>
+
+    <text class="error-text" wx:if="{{error}}">错误: {{error}}</text>
+  </view>
+</view>

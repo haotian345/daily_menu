@@ -4,13 +4,19 @@ Page({
   data: {
     recipe: null,
     loading: true,
-    notFound: false
+    notFound: false,
+    source: '',
+    isCustom: false
   },
 
   onLoad(options) {
     const id = parseInt(options.id)
+    this.setData({ source: options.source || '' })
+
     if (options.fromRandom === 'true') {
       this.loadFromGlobal(id)
+    } else if (options.source === 'custom') {
+      this.loadCustomRecipe(options.id)
     } else {
       this.loadRecipe(id)
     }
@@ -122,6 +128,69 @@ Page({
   /** 收藏菜谱 */
   toggleFavorite() {
     wx.showToast({ title: '收藏功能开发中', icon: 'none' })
+  },
+
+  /** 加载自定义菜谱 */
+  loadCustomRecipe(id) {
+    wx.showLoading({ title: '加载中...' })
+    if (wx.cloud) {
+      wx.cloud.callFunction({
+        name: 'getRecipes',
+        data: {
+          action: 'getCustomDetail',
+          data: { id: id }
+        }
+      }).then(res => {
+        wx.hideLoading()
+        if (res.result.code === 200) {
+          this.setData({
+            recipe: res.result.data,
+            loading: false,
+            isCustom: true
+          })
+          wx.setNavigationBarTitle({ title: res.result.data.name })
+        } else {
+          this.setData({ loading: false, notFound: true })
+        }
+      }).catch(() => {
+        wx.hideLoading()
+        this.setData({ loading: false, notFound: true })
+      })
+    } else {
+      wx.hideLoading()
+      this.setData({ loading: false, notFound: true })
+    }
+  },
+
+  /** 编辑菜谱 */
+  editRecipe() {
+    const { recipe } = this.data
+    if (!recipe) return
+    wx.navigateTo({
+      url: `/pages/add-recipe/add-recipe?id=${recipe._id}`
+    })
+  },
+
+  /** 删除菜谱 */
+  deleteRecipe() {
+    const { recipe } = this.data
+    if (!recipe) return
+    wx.showModal({
+      title: '确认删除',
+      content: `确定要删除菜谱"${recipe.name}"吗？`,
+      success: async (res) => {
+        if (res.confirm) {
+          try {
+            const db = wx.cloud.database()
+            await db.collection('custom_recipes').doc(recipe._id).remove()
+            wx.showToast({ title: '已删除', icon: 'success' })
+            setTimeout(() => wx.navigateBack(), 1000)
+          } catch (err) {
+            wx.showToast({ title: '删除失败', icon: 'none' })
+          }
+        }
+      }
+    })
   },
 
   /** 打开视频链接 */

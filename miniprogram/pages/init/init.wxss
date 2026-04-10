@@ -1,0 +1,10 @@
+.container { min-height: 100vh; background: #FFF8F0; display: flex; align-items: center; justify-content: center; padding: 40rpx; }
+.init-card { background: #fff; border-radius: 24rpx; padding: 60rpx 40rpx; box-shadow: 0 8rpx 32rpx rgba(255,107,53,0.1); text-align: center; width: 100%; }
+.init-title { display: block; font-size: 40rpx; font-weight: 700; color: #2D2D2D; margin-bottom: 30rpx; }
+.init-status { display: block; font-size: 30rpx; color: #666; margin-bottom: 30rpx; }
+.progress-bar { height: 16rpx; background: #F0F0F0; border-radius: 8rpx; overflow: hidden; margin-bottom: 16rpx; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, #FF6B35, #FFA62B); border-radius: 8rpx; transition: width 0.3s; }
+.progress-text { display: block; font-size: 26rpx; color: #999; margin-bottom: 30rpx; }
+.init-btn { background: linear-gradient(135deg, #FF6B35, #FFA62B); color: #fff; border-radius: 48rpx; padding: 24rpx 0; font-size: 32rpx; font-weight: 600; margin-top: 20rpx; }
+.retry-btn { background: #fff; color: #FF6B35; border: 2rpx solid #FF6B35; }
+.error-text { display: block; font-size: 24rpx; color: #e74c3c; margin-top: 20rpx; }

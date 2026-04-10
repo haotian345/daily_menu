@@ -1,5 +1,7 @@
 const app = getApp()
 const recipesData = require('../../data/recipes.js')
+const { COOKWARE_LIST } = require('../../data/constants.js')
+const { getAllCollection } = require('../../utils/util.js')
 
 Page({
   data: {
@@ -39,31 +41,75 @@ Page({
     activeCategory: 0,
     selectedIngredients: [],
     // 锅具列表
-    cookwareList: [
-      { name: '炒锅', icon: '🍳' },
-      { name: '平底锅', icon: '🥘' },
-      { name: '蒸锅', icon: '♨️' },
-      { name: '煮锅', icon: '🍲' },
-      { name: '砂锅', icon: '🫕' },
-      { name: '电饭煲', icon: '🍚' },
-      { name: '烤箱', icon: '🔥' },
-      { name: '空气炸锅', icon: '💨' },
-      { name: '高压锅', icon: ' pressured' },
-      { name: '电饼铛', icon: '🫓' }
-    ],
+    cookwareList: COOKWARE_LIST.slice(),
     selectedCookware: [],
     // 状态
-    hasSelection: false
+    hasSelection: false,
+    // 快速添加弹窗
+    showAddIngredient: false,
+    quickIngredientName: '',
+    quickIngredientCategory: '蔬菜',
+    quickCategoryIndex: 2,
+    showAddCookware: false,
+    quickCookwareName: ''
   },
 
   onLoad() {
     // 如果app中有缓存的选择，恢复
-    if (app.globalData.selectedIngredients.length || app.globalData.selectedCookware.length) {
+    var gd = app.globalData || {}
+    if ((gd.selectedIngredients && gd.selectedIngredients.length) || (gd.selectedCookware && gd.selectedCookware.length)) {
       this.setData({
-        selectedIngredients: app.globalData.selectedIngredients,
-        selectedCookware: app.globalData.selectedCookware,
+        selectedIngredients: gd.selectedIngredients || [],
+        selectedCookware: gd.selectedCookware || [],
         hasSelection: true
       })
+    }
+    // 自动导入菜谱到云数据库（仅首次）
+    this.initCloudData()
+    // 加载用户自定义食材和锅具
+    this.loadCustomData()
+  },
+
+  /** 自动导入菜谱数据到云数据库 */
+  initCloudData() {
+    try {
+      const db = wx.cloud.database()
+      db.collection('recipes').count().then(res => {
+        const totalCount = recipesData.length
+        if (res.total >= totalCount) {
+          console.log('数据库已有 ' + res.total + ' 道菜谱')
+          return
+        }
+        // 部分导入或全新导入：查出已有菜谱名，只导入缺失的
+        console.log('数据库有 ' + res.total + '/' + totalCount + ' 道，开始补全...')
+        const batchTimes = Math.ceil(res.total / 100)
+        let existingNames = new Set()
+        let p = Promise.resolve()
+        for (let i = 0; i < batchTimes; i++) {
+          p = p.then(() => db.collection('recipes').skip(i * 100).limit(100).get()).then(r => {
+            r.data.forEach(d => existingNames.add(d.name))
+          })
+        }
+        p.then(() => {
+          const toImport = recipesData.filter(r => !existingNames.has(r.name))
+          if (toImport.length === 0) return
+          const batchSize = 20
+          let chain = Promise.resolve()
+          for (let i = 0; i < toImport.length; i += batchSize) {
+            const batch = toImport.slice(i, i + batchSize)
+            chain = chain.then(() => Promise.all(batch.map(r => db.collection('recipes').add({ data: r }))))
+          }
+          return chain
+        }).then(() => {
+          console.log('菜谱数据补全完成')
+        }).catch(err => {
+          console.warn('菜谱导入失败:', err.message || err)
+        })
+      }).catch(err => {
+        console.warn('云数据库未就绪，使用本地数据:', err.message || err)
+      })
+    } catch (e) {
+      console.warn('云开发未配置，使用本地数据')
     }
   },
 
@@ -184,5 +230,165 @@ Page({
     wx.navigateTo({
       url: `/pages/detail/detail?id=${recipe.id}&fromRandom=true`
     })
+  },
+
+  /** 跳转初始化页面 */
+  goInit() {
+    wx.navigateTo({ url: '/pages/init/init' })
+  },
+
+  /** 跳转管理页面 */
+  goManage() {
+    wx.navigateTo({ url: '/pages/manage/manage' })
+  },
+
+  /** 从云数据库加载用户自定义食材和锅具 */
+  async loadCustomData() {
+    try {
+      const db = wx.cloud.database()
+      // 加载自定义食材（分页获取全部）
+      getAllCollection(db.collection('custom_ingredients')).then(data => {
+        if (data.length > 0) {
+          const categories = this.data.ingredientCategories
+          data.forEach(ci => {
+            const catIndex = categories.findIndex(c => c.name === ci.category)
+            if (catIndex > -1 && categories[catIndex].items.indexOf(ci.name) === -1) {
+              categories[catIndex].items.push(ci.name)
+            }
+          })
+          this.setData({ ingredientCategories: categories })
+        }
+      }).catch(() => {})
+
+      // 加载自定义锅具（分页获取全部）
+      getAllCollection(db.collection('custom_cookware')).then(data => {
+        if (data.length > 0) {
+          const customCookware = data.map(c => ({ name: c.name, icon: c.icon || '🍳' }))
+          const existingNames = this.data.cookwareList.map(c => c.name)
+          const newItems = customCookware.filter(c => existingNames.indexOf(c.name) === -1)
+          if (newItems.length > 0) {
+            this.setData({
+              cookwareList: this.data.cookwareList.concat(newItems)
+            })
+          }
+        }
+      }).catch(() => {})
+    } catch (e) {
+      // 云开发未配置，忽略
+    }
+  },
+
+  /** 显示快速添加食材弹窗 */
+  showQuickAddIngredient() {
+    const categories = this.data.ingredientCategories
+    const catName = categories[this.data.activeCategory].name
+    const catIndex = categories.findIndex(c => c.name === catName)
+    this.setData({
+      showAddIngredient: true,
+      quickIngredientName: '',
+      quickIngredientCategory: catName,
+      quickCategoryIndex: catIndex
+    })
+  },
+
+  hideQuickAddIngredient() {
+    this.setData({ showAddIngredient: false })
+  },
+
+  onQuickIngredientInput(e) {
+    this.setData({ quickIngredientName: e.detail.value })
+  },
+
+  onQuickCategoryChange(e) {
+    const categories = this.data.ingredientCategories
+    const idx = e.detail.value
+    this.setData({
+      quickIngredientCategory: categories[idx].name,
+      quickCategoryIndex: idx
+    })
+  },
+
+  /** 快速添加食材 */
+  async quickAddIngredient() {
+    const name = this.data.quickIngredientName
+    const category = this.data.quickIngredientCategory
+    if (!name || !name.trim()) {
+      wx.showToast({ title: '请输入食材名称', icon: 'none' })
+      return
+    }
+
+    try {
+      const db = wx.cloud.database()
+      await db.collection('custom_ingredients').add({
+        data: {
+          name: name.trim(),
+          category: category,
+          icon: '🍽',
+          createdAt: db.serverDate()
+        }
+      })
+
+      // 添加到当前列表中
+      const categories = this.data.ingredientCategories
+      const catIndex = categories.findIndex(c => c.name === category)
+      if (catIndex > -1 && categories[catIndex].items.indexOf(name.trim()) === -1) {
+        categories[catIndex].items.push(name.trim())
+      }
+
+      this.setData({
+        ingredientCategories: categories,
+        showAddIngredient: false,
+        activeCategory: catIndex
+      })
+      wx.showToast({ title: '已添加', icon: 'success' })
+    } catch (err) {
+      wx.showToast({ title: '添加失败', icon: 'none' })
+    }
+  },
+
+  /** 显示快速添加锅具弹窗 */
+  showQuickAddCookware() {
+    this.setData({
+      showAddCookware: true,
+      quickCookwareName: ''
+    })
+  },
+
+  hideQuickAddCookware() {
+    this.setData({ showAddCookware: false })
+  },
+
+  onQuickCookwareInput(e) {
+    this.setData({ quickCookwareName: e.detail.value })
+  },
+
+  /** 快速添加锅具 */
+  async quickAddCookware() {
+    const name = this.data.quickCookwareName
+    if (!name || !name.trim()) {
+      wx.showToast({ title: '请输入锅具名称', icon: 'none' })
+      return
+    }
+
+    try {
+      const db = wx.cloud.database()
+      await db.collection('custom_cookware').add({
+        data: {
+          name: name.trim(),
+          icon: '🍳',
+          createdAt: db.serverDate()
+        }
+      })
+
+      const existingNames = this.data.cookwareList.map(c => c.name)
+      if (existingNames.indexOf(name.trim()) === -1) {
+        this.setData({ cookwareList: this.data.cookwareList.concat([{ name: name.trim(), icon: '🍳' }]) })
+      }
+
+      this.setData({ showAddCookware: false })
+      wx.showToast({ title: '已添加', icon: 'success' })
+    } catch (err) {
+      wx.showToast({ title: '添加失败', icon: 'none' })
+    }
   }
 })

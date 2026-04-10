@@ -287,3 +287,43 @@
   display: block;
   padding-left: 22rpx;
 }
+
+/* 自定义菜谱操作按钮 */
+.custom-actions {
+  display: flex;
+  gap: 16rpx;
+  margin: 0 24rpx 20rpx;
+}
+
+.custom-action-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8rpx;
+  padding: 20rpx;
+  border-radius: 16rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+.custom-action-btn .action-icon {
+  font-size: 32rpx;
+  margin-bottom: 0;
+}
+
+.custom-action-btn .action-text {
+  font-size: 28rpx;
+}
+
+.edit-btn {
+  background: #FFF5ED;
+  color: #FF6B35;
+  border: 2rpx solid #FFD4BC;
+}
+
+.delete-btn {
+  background: #FFF1F0;
+  color: #FF4D4F;
+  border: 2rpx solid #FFCCC7;
+}

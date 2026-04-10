@@ -79,16 +79,19 @@ Page({
   /** 跳转到菜谱详情 */
   goToDetail(e) {
     const id = e.currentTarget.dataset.id
-    const recipe = this.data.recipes.find(r => r.id === id)
+    const source = e.currentTarget.dataset.source || ''
+    const recipe = this.data.recipes.find(r => (String(r.id) === String(id) || String(r._id) === String(id)))
 
     if (recipe) {
       // 将菜谱数据存到全局，方便详情页获取
       getApp().globalData.currentRecipe = recipe
     }
 
-    wx.navigateTo({
-      url: `/pages/detail/detail?id=${id}`
-    })
+    const url = source === 'custom'
+      ? `/pages/detail/detail?id=${id}&source=custom`
+      : `/pages/detail/detail?id=${id}`
+
+    wx.navigateTo({ url })
   },
 
   /** 返回重新选择 */

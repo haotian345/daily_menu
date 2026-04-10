@@ -88,8 +88,37 @@ function filterRecipes(recipes, ingredients, cookware) {
   return results
 }
 
+/**
+ * 分页获取云数据库集合的全部数据
+ * @param {Object} collection - db.collection('xxx') 实例
+ * @param {Object} [options] - 可选参数，如 orderBy 等
+ * @returns {Promise<Array>} 全部数据
+ */
+async function getAllCollection(collection, options) {
+  let query = collection
+  if (options && options.orderBy) {
+    query = collection.orderBy(options.orderBy, 'desc')
+  }
+  const countRes = await query.count()
+  const total = countRes.total
+  if (total === 0) return []
+
+  let allData = []
+  const batchTimes = Math.ceil(total / 100)
+  for (let i = 0; i < batchTimes; i++) {
+    let q = collection
+    if (options && options.orderBy) {
+      q = collection.orderBy(options.orderBy, 'desc')
+    }
+    const res = await q.skip(i * 100).limit(100).get()
+    allData = allData.concat(res.data)
+  }
+  return allData
+}
+
 module.exports = {
   formatTime,
   calcMatchRate,
-  filterRecipes
+  filterRecipes,
+  getAllCollection
 }

@@ -60,6 +60,18 @@
       </button>
     </view>
 
+    <!-- 自定义菜谱操作按钮 -->
+    <view class="custom-actions" wx:if="{{isCustom}}">
+      <view class="custom-action-btn edit-btn" bindtap="editRecipe">
+        <text class="action-icon">✏️</text>
+        <text class="action-text">编辑菜谱</text>
+      </view>
+      <view class="custom-action-btn delete-btn" bindtap="deleteRecipe">
+        <text class="action-icon">🗑️</text>
+        <text class="action-text">删除菜谱</text>
+      </view>
+    </view>
+
     <!-- 所需锅具 -->
     <view class="section-card">
       <view class="section-title">所需锅具</view>

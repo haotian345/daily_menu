@@ -2,7 +2,13 @@
   "pages": [
     "pages/index/index",
     "pages/result/result",
-    "pages/detail/detail"
+    "pages/detail/detail",
+    "pages/init/init",
+    "pages/manage/manage",
+    "pages/manage-ingredients/manage-ingredients",
+    "pages/manage-cookware/manage-cookware",
+    "pages/add-recipe/add-recipe",
+    "pages/my-recipes/my-recipes"
   ],
   "window": {
     "backgroundTextStyle": "light",

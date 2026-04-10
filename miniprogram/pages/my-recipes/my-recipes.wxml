@@ -1,0 +1,49 @@
+<view class="page-container">
+  <!-- 加载中 -->
+  <view class="loading-state" wx:if="{{loading}}">
+    <view class="loading-spinner"></view>
+    <text>加载中...</text>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{!loading && recipes.length === 0}}">
+    <text class="empty-icon">📖</text>
+    <text class="empty-title">暂无自定义菜谱</text>
+    <text class="empty-desc">点击下方按钮创建你的第一道菜谱</text>
+    <view class="empty-btn" bindtap="addRecipe">创建菜谱</view>
+  </view>
+
+  <!-- 菜谱列表 -->
+  <view class="recipe-list" wx:if="{{!loading && recipes.length > 0}}">
+    <view class="list-header">
+      <text class="list-title">我的菜谱（{{recipes.length}}）</text>
+      <view class="add-link" bindtap="addRecipe">+ 添加</view>
+    </view>
+
+    <view class="recipe-card" wx:for="{{recipes}}" wx:key="_id" bindtap="viewRecipe" data-id="{{item._id}}">
+      <view class="card-header">
+        <text class="card-name">{{item.name}}</text>
+        <view class="card-actions" catchtap="">
+          <view class="action-link" catchtap="editRecipe" data-id="{{item._id}}">编辑</view>
+          <view class="action-link action-delete" catchtap="deleteRecipe" data-id="{{item._id}}" data-name="{{item.name}}">删除</view>
+        </view>
+      </view>
+      <view class="card-meta">
+        <text class="meta-tag">{{item.category}}</text>
+        <text class="meta-tag">{{item.difficulty}}</text>
+        <text class="meta-tag">{{item.cookTime}}</text>
+        <text class="meta-tag">{{item.servings}}</text>
+      </view>
+      <text class="card-desc" wx:if="{{item.description}}">{{item.description}}</text>
+      <view class="card-ingredients" wx:if="{{item.ingredientNames}}">
+        <text class="ing-label">食材：</text>
+        <text class="ing-list">{{item.ingredientNames}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 浮动添加按钮 -->
+  <view class="fab-btn" wx:if="{{!loading && recipes.length > 0}}" bindtap="addRecipe">
+    <text class="fab-icon">+</text>
+  </view>
+</view>

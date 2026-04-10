@@ -59,6 +59,10 @@
           >
             <text>{{item}}</text>
           </view>
+          <!-- 快速添加食材按钮 -->
+          <view class="ingredient-chip chip-add" bindtap="showQuickAddIngredient">
+            <text>+ 自定义</text>
+          </view>
         </view>
       </scroll-view>
     </view>
@@ -79,6 +83,11 @@
         <text class="cookware-name">{{item.name}}</text>
         <view class="cookware-check" wx:if="{{selectedCookware.indexOf(item.name) > -1}}">✓</view>
       </view>
+      <!-- 快速添加锅具按钮 -->
+      <view class="cookware-item cookware-add" bindtap="showQuickAddCookware">
+        <text class="cookware-icon">+</text>
+        <text class="cookware-name">自定义</text>
+      </view>
     </view>
   </view>
 
@@ -94,4 +103,41 @@
 
   <!-- 底部占位 -->
   <view class="bottom-placeholder"></view>
+
+  <!-- 管理入口 -->
+  <view class="admin-entry" bindtap="goManage">管理中心</view>
+
+  <!-- 快速添加食材弹窗 -->
+  <view class="modal-mask" wx:if="{{showAddIngredient}}" bindtap="hideQuickAddIngredient"></view>
+  <view class="modal-dialog" wx:if="{{showAddIngredient}}">
+    <view class="modal-title">添加食材</view>
+    <view class="form-group">
+      <text class="form-label">食材名称</text>
+      <input class="form-input" placeholder="请输入食材名称" value="{{quickIngredientName}}" bindinput="onQuickIngredientInput" />
+    </view>
+    <view class="form-group">
+      <text class="form-label">所属分类</text>
+      <picker range="{{ingredientCategories}}" range-key="name" value="{{quickCategoryIndex}}" bindchange="onQuickCategoryChange">
+        <view class="picker-text">{{quickIngredientCategory}} ▾</view>
+      </picker>
+    </view>
+    <view class="modal-actions">
+      <view class="modal-btn modal-btn-cancel" bindtap="hideQuickAddIngredient">取消</view>
+      <view class="modal-btn modal-btn-confirm" bindtap="quickAddIngredient">添加</view>
+    </view>
+  </view>
+
+  <!-- 快速添加锅具弹窗 -->
+  <view class="modal-mask" wx:if="{{showAddCookware}}" bindtap="hideQuickAddCookware"></view>
+  <view class="modal-dialog" wx:if="{{showAddCookware}}">
+    <view class="modal-title">添加锅具</view>
+    <view class="form-group">
+      <text class="form-label">锅具名称</text>
+      <input class="form-input" placeholder="请输入锅具名称" value="{{quickCookwareName}}" bindinput="onQuickCookwareInput" />
+    </view>
+    <view class="modal-actions">
+      <view class="modal-btn modal-btn-cancel" bindtap="hideQuickAddCookware">取消</view>
+      <view class="modal-btn modal-btn-confirm" bindtap="quickAddCookware">添加</view>
+    </view>
+  </view>
 </view>

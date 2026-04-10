@@ -1,0 +1,203 @@
+.page-container {
+  min-height: 100vh;
+  background: #FFF8F0;
+  padding: 20rpx 24rpx;
+}
+
+.section-card {
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  padding: 28rpx 24rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 4rpx 16rpx rgba(255, 107, 53, 0.08);
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #2D2D2D;
+  margin-bottom: 20rpx;
+}
+
+.section-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.section-header-row .section-title {
+  margin-bottom: 0;
+}
+
+.add-btn {
+  font-size: 28rpx;
+  color: #FF6B35;
+  font-weight: 600;
+  padding: 4rpx 16rpx;
+}
+
+/* 表单 */
+.form-group {
+  margin-bottom: 20rpx;
+}
+
+.form-label {
+  display: block;
+  font-size: 26rpx;
+  color: #666;
+  margin-bottom: 8rpx;
+}
+
+.form-input {
+  width: 100%;
+  height: 80rpx;
+  background: #F7F7F7;
+  border-radius: 12rpx;
+  padding: 0 20rpx;
+  font-size: 28rpx;
+  box-sizing: border-box;
+}
+
+.form-textarea {
+  width: 100%;
+  background: #F7F7F7;
+  border-radius: 12rpx;
+  padding: 20rpx;
+  font-size: 28rpx;
+  min-height: 120rpx;
+  box-sizing: border-box;
+}
+
+.form-row {
+  display: flex;
+  gap: 16rpx;
+}
+
+.form-half {
+  flex: 1;
+}
+
+.picker-text {
+  height: 80rpx;
+  line-height: 80rpx;
+  background: #F7F7F7;
+  border-radius: 12rpx;
+  padding: 0 20rpx;
+  font-size: 28rpx;
+  color: #2D2D2D;
+}
+
+/* 锅具选择 */
+.cookware-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+}
+
+.cookware-chip {
+  display: flex;
+  align-items: center;
+  padding: 12rpx 20rpx;
+  background: #F7F7F7;
+  border-radius: 28rpx;
+  font-size: 26rpx;
+  color: #666;
+  border: 2rpx solid transparent;
+}
+
+.cookware-chip.chip-active {
+  background: linear-gradient(135deg, #FF6B35, #FFA62B);
+  color: #FFFFFF;
+  border-color: transparent;
+}
+
+.chip-icon {
+  margin-right: 6rpx;
+}
+
+/* 食材清单 */
+.ingredient-item {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  margin-bottom: 12rpx;
+}
+
+.ing-name-input {
+  flex: 1;
+  height: 72rpx;
+  background: #F7F7F7;
+  border-radius: 12rpx;
+  padding: 0 16rpx;
+  font-size: 28rpx;
+}
+
+.ing-amount-input {
+  width: 200rpx;
+  height: 72rpx;
+  background: #F7F7F7;
+  border-radius: 12rpx;
+  padding: 0 16rpx;
+  font-size: 28rpx;
+}
+
+.remove-btn {
+  width: 52rpx;
+  height: 52rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FF4D4F;
+  font-size: 28rpx;
+}
+
+/* 步骤 */
+.step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12rpx;
+  margin-bottom: 16rpx;
+}
+
+.step-num {
+  width: 48rpx;
+  height: 48rpx;
+  background: linear-gradient(135deg, #FF6B35, #FFA62B);
+  color: #FFFFFF;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 8rpx;
+}
+
+.step-input {
+  flex: 1;
+  background: #F7F7F7;
+  border-radius: 12rpx;
+  padding: 16rpx;
+  font-size: 28rpx;
+  min-height: 72rpx;
+}
+
+/* 提交按钮 */
+.submit-btn {
+  background: linear-gradient(135deg, #FF6B35, #FFA62B);
+  border-radius: 44rpx;
+  height: 88rpx;
+  line-height: 88rpx;
+  text-align: center;
+  color: #FFFFFF;
+  font-size: 32rpx;
+  font-weight: 700;
+  box-shadow: 0 8rpx 24rpx rgba(255, 107, 53, 0.35);
+  margin-top: 20rpx;
+}
+
+.submit-btn.submitting {
+  opacity: 0.6;
+}
