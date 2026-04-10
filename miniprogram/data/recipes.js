@@ -55,7 +55,7 @@ const recipes = [
       }
     ],
     "tips": "鸡蛋要多放油，油温要高，炒出来才蓬松；番茄要炒出汁水才好吃，加少许糖可以提鲜去酸",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/6821538c000000002100782a",
     "cover": ""
   },
   {
@@ -118,7 +118,7 @@ const recipes = [
       }
     ],
     "tips": "土豆丝一定要泡水去淀粉，炒出来才爽脆；全程大火快炒，醋要沿锅边淋入，激发醋香",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/625bbde0000000000102f708",
     "cover": ""
   },
   {
@@ -189,7 +189,7 @@ const recipes = [
       }
     ],
     "tips": "肉丝要逆纹切，腌制后口感更嫩；青椒不要炒太久，保持脆嫩口感",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/677a3c8d000000000b00c3f9",
     "cover": ""
   },
   {
@@ -284,7 +284,7 @@ const recipes = [
       }
     ],
     "tips": "花生米要最后放入，避免回软；碗汁要提前调好，大火快炒才能锁住味道；干辣椒不要炸糊",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/5e8478d90000000001005d69",
     "cover": ""
   },
   {
@@ -368,7 +368,7 @@ const recipes = [
       }
     ],
     "tips": "焯水要冷水下锅才能逼出血水；炒糖色要小火，变色后立即放排骨，避免糖焦发苦；炖煮时加热水不要加冷水",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/5cbe7d4d000000000f0112c4",
     "cover": ""
   },
   {
@@ -452,7 +452,7 @@ const recipes = [
       }
     ],
     "tips": "肉条要复炸两次才能外酥里嫩；糖醋汁要提前调好，裹汁后要快速出锅，否则外皮会回软",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/67e8ae5e000000000e00425c",
     "cover": ""
   },
   {
@@ -536,7 +536,7 @@ const recipes = [
       }
     ],
     "tips": "豆腐提前焯水可以去除豆腥味且不易碎；勾芡后不要大力翻炒，轻轻推动即可；花椒要用现磨的才够麻",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/66adb8d1000000000d031cf7",
     "cover": ""
   },
   {
@@ -627,7 +627,7 @@ const recipes = [
       }
     ],
     "tips": "鱼香汁的比例是关键：糖醋比例约为1:1，鱼香味的灵魂在于泡椒；所有配菜切丝要均匀，炒出来才美观",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/6350bcab000000000703493e",
     "cover": ""
   },
   {
@@ -715,7 +715,7 @@ const recipes = [
       }
     ],
     "tips": "五花肉煮好后可以放入冰水中降温，切片更整齐；煸炒肉片要有耐心，逼出油脂才不腻；蒜苗分两次放，蒜叶最后放保持翠绿",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/6164dcaf00000000010034c8",
     "cover": ""
   },
   {
@@ -790,7 +790,7 @@ const recipes = [
       }
     ],
     "tips": "豆角一定要煸透煸熟，未熟的豆角有毒；煸炒豆角时中小火慢煸，表面起皱才香；芽菜是灵魂配料，不建议省略",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/669a5ddc0000000025001620",
     "cover": ""
   },
   {
@@ -850,7 +850,7 @@ const recipes = [
       }
     ],
     "tips": "西兰花焯水时间不宜过长，1分钟即可，焯水后过冷水保持翠绿脆嫩；蒜末分两次放，炒蒜和出锅蒜层次更丰富",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/5ff054660000000001000b1c",
     "cover": ""
   },
   {
@@ -926,7 +926,7 @@ const recipes = [
       }
     ],
     "tips": "要用普通可乐不要用无糖可乐，普通可乐的糖分才能形成亮泽的酱汁；收汁时要不停翻动，避免糊底",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/6232bd2d00000000210349e9",
     "cover": ""
   },
   {
@@ -1022,7 +1022,7 @@ const recipes = [
       }
     ],
     "tips": "牛肉要冷水下锅焯水去腥；炖牛肉一定要加开水，加冷水肉质会变硬；土豆后放避免炖烂糊汤",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/6617b65a000000001b00d7e8",
     "cover": ""
   },
   {
@@ -1093,7 +1093,7 @@ const recipes = [
       }
     ],
     "tips": "芹菜大火快炒保持脆嫩，不要炒太久变软；肉丝提前腌制口感更嫩滑",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/674859a50000000006016280",
     "cover": ""
   },
   {
@@ -1180,7 +1180,7 @@ const recipes = [
       }
     ],
     "tips": "鸡蛋和肉要分开炒，先炒蛋后炒肉，最后合炒才能保持各自口感；黄瓜要后放，保持脆嫩",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/69410841000000000d038cb3",
     "cover": ""
   },
   {
@@ -1251,7 +1251,7 @@ const recipes = [
       }
     ],
     "tips": "蒜苔大火快炒才能保持翠绿脆嫩；如果蒜苔较老，可先焯水1分钟再炒",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/659bbeec000000000f010ad6",
     "cover": ""
   },
   {
@@ -1348,7 +1348,7 @@ const recipes = [
       }
     ],
     "tips": "牛腩焯水后要用温水冲洗；番茄分两种切法，小块炒酱大块炖煮，口感层次更丰富；用砂锅炖牛肉更入味软烂",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/63f732f2000000001300355e",
     "cover": ""
   },
   {
@@ -1436,7 +1436,7 @@ const recipes = [
       }
     ],
     "tips": "五花肉选三层五花，肥瘦相间最佳；炒糖色一定要小火耐心炒，大火容易焦苦；炖煮用砂锅最佳，小火慢炖肉质才能软烂",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/6694a9500000000003027787",
     "cover": ""
   },
   {
@@ -1491,7 +1491,7 @@ const recipes = [
       }
     ],
     "tips": "蔬菜要大火快炒，时间不宜过长，保持脆嫩和营养；炒之前沥干水分，避免出水过多；加少许糖可以提鲜保持翠绿",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/683ee5e2000000002100c056",
     "cover": ""
   },
   {
@@ -1563,7 +1563,7 @@ const recipes = [
       }
     ],
     "tips": "油菜焯水时间要短，保持翠绿；香菇切花刀更易入味且美观；蚝油本身有咸味，盐要少放",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/62ff595d000000001e0084a4",
     "cover": ""
   },
   {
@@ -1626,7 +1626,7 @@ const recipes = [
       }
     ],
     "tips": "鱼片要斜刀片薄，腌制时加蛋清和淀粉可以使鱼片更嫩滑，煮鱼片时间不宜过长。",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/5fcb5e09000000000100bdf3",
     "cover": ""
   },
   {
@@ -1689,7 +1689,7 @@ const recipes = [
       }
     ],
     "tips": "毛肚不宜久煮，烫1分钟即可保持脆嫩口感，豆瓣酱要小火慢炒才能炒出红亮的颜色。",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/67de73fb000000000b0170cd",
     "cover": ""
   },
   {
@@ -1752,7 +1752,7 @@ const recipes = [
       }
     ],
     "tips": "鸡块要炸两次才能达到外酥里嫩的效果，干辣椒小火慢炒防止炒糊发苦。",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/63885fbe000000001b025afe",
     "cover": ""
   },
   {
@@ -1815,7 +1815,7 @@ const recipes = [
       }
     ],
     "tips": "五花肉煮好后放冰水浸泡可以让肉质更紧实，切片时更容易切薄，蒜泥要现捣现用味道最香。",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/60a62f330000000021038eb2",
     "cover": ""
   },
   {
@@ -1878,7 +1878,7 @@ const recipes = [
       }
     ],
     "tips": "鸡爪煮的时间不要过长以免太软烂失去嚼劲，冰水浸泡可以使鸡爪口感更脆爽Q弹。",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/5ca888cf000000000e03e6bc",
     "cover": ""
   },
   {
@@ -1941,7 +1941,7 @@ const recipes = [
       }
     ],
     "tips": "酸菜要充分炒出酸香味汤汁才够味，鱼片下锅后不要搅动以免碎烂。",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/5e00c4dd0000000001008a0d",
     "cover": ""
   },
   {
@@ -2004,7 +2004,7 @@ const recipes = [
       }
     ],
     "tips": "鸡肉煮熟后一定要用冰水浸泡，这样鸡皮才会紧致有弹性，口感更加嫩滑。",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/5d1328390000000028000278",
     "cover": ""
   },
   {
@@ -2067,7 +2067,7 @@ const recipes = [
       }
     ],
     "tips": "肉片要逆纹切才会嫩，腌制时加蛋清和淀粉锁住水分，煮肉片时不要搅动太多以免脱浆。",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/5d888412000000000201ea83",
     "cover": ""
   },
   {
@@ -2130,7 +2130,7 @@ const recipes = [
       }
     ],
     "tips": "三提三放可以使鸡皮快速收缩保持爽脆，浸煮时保持微沸不要大开以免鸡皮破裂。",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/68c215fc000000001b03ddd4",
     "cover": ""
   },
   {
@@ -2193,7 +2193,7 @@ const recipes = [
       }
     ],
     "tips": "蒸鱼时间要根据鱼的大小调整，一般500克左右的鱼蒸8-10分钟即可，蒸过头鱼肉会变老。",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/5e146e8400000000010080e8",
     "cover": ""
   },
   {
@@ -2256,7 +2256,7 @@ const recipes = [
       }
     ],
     "tips": "肉块要炸两次才能保持外酥里嫩，菠萝最后放入翻炒即可，不宜炒太久以免出水发软。",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/6614b43e000000001a00f52d",
     "cover": ""
   },
   {
@@ -2319,7 +2319,7 @@ const recipes = [
       }
     ],
     "tips": "排骨提前浸泡去除血水蒸出来更清爽，腌制时加淀粉可以锁住水分使排骨更嫩滑。",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/67f1d42d000000000b01e2a4",
     "cover": ""
   },
   {
@@ -2382,7 +2382,7 @@ const recipes = [
       }
     ],
     "tips": "生菜焯水时间不宜过长，30秒即可保持脆嫩口感，焯水时加盐和油可以使生菜颜色更翠绿。",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/63e2260b0000000018011645",
     "cover": ""
   },
   {
@@ -2445,7 +2445,7 @@ const recipes = [
       }
     ],
     "tips": "梅花肉肥瘦相间最适合做叉烧，腌制时间越长越入味，最后几分钟要注意观察防止烤焦。",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/6889920b00000000250162eb",
     "cover": ""
   },
   {
@@ -2508,7 +2508,7 @@ const recipes = [
       }
     ],
     "tips": "鱼头一定要去除黑膜和鱼鳃以去除腥味，蒸的时间根据鱼头大小调整，不宜过久。",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/5fe2c0c40000000001000677",
     "cover": ""
   },
   {
@@ -2571,7 +2571,7 @@ const recipes = [
       }
     ],
     "tips": "牛肉要逆纹切片，大火快炒才能保持嫩滑，炒的时间不宜过长以免肉质变老。",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/5ff1a3f70000000001003548",
     "cover": ""
   },
   {
@@ -2634,7 +2634,7 @@ const recipes = [
       }
     ],
     "tips": "青椒先干煸可以增加焦香味，五花肉要煸出多余油脂吃起来才不会腻。",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/60b1b64a0000000021039192",
     "cover": ""
   },
   {
@@ -2697,7 +2697,7 @@ const recipes = [
       }
     ],
     "tips": "炒糖色要用小火耐心熬制，火大了容易发苦，炖煮时用开水可以保持肉质松软。",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/67483e3d000000000203a079",
     "cover": ""
   },
   {
@@ -2760,7 +2760,7 @@ const recipes = [
       }
     ],
     "tips": "香干切片后稍微煎一下口感更好，加水翻炒可以让香干更好地吸收调味汁。",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/667bffa4000000001d01426b",
     "cover": ""
   },
   {
@@ -2823,7 +2823,7 @@ const recipes = [
       }
     ],
     "tips": "蛋液中加少许醋可以让鸡蛋更蓬松嫩滑，醋要分两次放，一次在蛋液中一次在最后调味，层次更丰富。",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/67ee5151000000000f031465",
     "cover": ""
   },
   {
@@ -2886,7 +2886,7 @@ const recipes = [
       }
     ],
     "tips": "复炸是锅包肉酥脆的关键，糖醋汁要快速翻炒不能久煮，否则肉片会变软。",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/66863b3c000000001c026cd0",
     "cover": ""
   },
   {
@@ -2949,7 +2949,7 @@ const recipes = [
       }
     ],
     "tips": "豆角一定要炖熟透，土豆和茄子后放可以防止炖烂糊锅，汤汁不要收太干，留些汤汁更入味。",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/670bcc18000000001602095d",
     "cover": ""
   },
   {
@@ -3012,7 +3012,7 @@ const recipes = [
       }
     ],
     "tips": "肉段要复炸才能外酥里嫩，调碗汁时淀粉不要放太多，酱汁要清爽不糊口。",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/68ca097800000000070285a5",
     "cover": ""
   },
   {
@@ -3075,7 +3075,7 @@ const recipes = [
       }
     ],
     "tips": "酸菜要多洗几遍去除多余盐分，排骨先焯水可以去除腥味，炖煮时间越长越入味。",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/5ead30750000000001003611",
     "cover": ""
   },
   {
@@ -3138,7 +3138,7 @@ const recipes = [
       }
     ],
     "tips": "榛蘑是这道菜的灵魂，泡蘑菇的水很鲜不要倒掉，炖煮时小火慢炖才能充分入味。",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/63b8ebaf0000000022034121",
     "cover": ""
   },
   {
@@ -3197,7 +3197,7 @@ const recipes = [
       }
     ],
     "tips": "番茄要先炒出汁汤底才够味，蛋液要慢慢倒入且不要立即搅拌，这样蛋花才漂亮。",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/657189b2000000003a00eed8",
     "cover": ""
   },
   {
@@ -3256,7 +3256,7 @@ const recipes = [
       }
     ],
     "tips": "紫菜不宜久煮以免营养流失，虾皮可以增加汤的鲜味，蛋液慢倒快搅蛋花更细嫩。",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/63b14b2e0000000022028821",
     "cover": ""
   },
   {
@@ -3319,7 +3319,7 @@ const recipes = [
       }
     ],
     "tips": "莲藕要选粉藕（七孔藕），煲出来的汤更粉糯，全程小火慢炖汤色才清亮。",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/61b5c2840000000001024b86",
     "cover": ""
   },
   {
@@ -3382,7 +3382,7 @@ const recipes = [
       }
     ],
     "tips": "白胡椒粉是灵魂一定要放，醋要在出锅前加才能保持酸味，勾芡不要太浓薄芡即可。",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/5df19615000000000100171e",
     "cover": ""
   },
   {
@@ -3445,7 +3445,7 @@ const recipes = [
       }
     ],
     "tips": "冬瓜不要太早放以免炖烂，排骨先炖出鲜味再放冬瓜，汤色更清亮。",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/5dc8140a0000000001002601",
     "cover": ""
   },
   {
@@ -3508,7 +3508,7 @@ const recipes = [
       }
     ],
     "tips": "选用甜玉米汤会更鲜甜，红枣去核可以避免上火，全程小火慢炖汤更浓郁。",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/67d38007000000000901585e",
     "cover": ""
   },
   {
@@ -3567,7 +3567,7 @@ const recipes = [
       }
     ],
     "tips": "和面时水要分次加，面团不能太软，煎的时候中小火慢煎才能外酥里糯。",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/5e44f55f0000000001002f4d",
     "cover": ""
   },
   {
@@ -3626,7 +3626,7 @@ const recipes = [
       }
     ],
     "tips": "蛋挞液过筛是口感细腻的关键，烤制温度要高才能烤出漂亮的焦糖斑点，不要装太满以免溢出。",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/5e354f7e00000000010099e0",
     "cover": ""
   },
   {
@@ -3689,7 +3689,7 @@ const recipes = [
       }
     ],
     "tips": "半烫面能让饼既柔软又有韧性，醒面时间要够面团才好擀，煎的时候用中小火慢煎才能酥脆。",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/66deb60e000000000c01b055",
     "cover": ""
   },
   {
@@ -3752,7 +3752,7 @@ const recipes = [
       }
     ],
     "tips": "面粉水是冰花的关键，水与面的比例约为30:1，火候不能太大以免糊底，水蒸发完后再焖1分钟更酥脆。",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/69202536000000001b033782",
     "cover": ""
   },
   {
@@ -3815,7 +3815,7 @@ const recipes = [
       }
     ],
     "tips": "煮面时加盐和油可以防粘且更入味，意面煮至弹牙（al dente）口感最佳，肉酱要多煮一会才够浓郁。",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/63e308030000000008026f05",
     "cover": ""
   },
   {
@@ -3878,7 +3878,7 @@ const recipes = [
       }
     ],
     "tips": "牛排一定要回温再煎，锅要足够热才能煎出焦壳，煎后静置是锁汁的关键步骤。",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/6621f5e7000000000100783e",
     "cover": ""
   },
   {
@@ -3941,7 +3941,7 @@ const recipes = [
       }
     ],
     "tips": "炒面粉时要炒匀但不能炒糊，加液体时要边倒边搅防结块，淡奶油最后放避免煮久分离。",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/67d28185000000000e005ea3",
     "cover": ""
   },
   {
@@ -4004,7 +4004,7 @@ const recipes = [
       }
     ],
     "tips": "腌制时间越长越入味，烤制中途翻面刷汁可以保持湿润，最后高温烤出焦脆外皮。",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/5e71f8a3000000000100476b",
     "cover": ""
   },
   {
@@ -4067,7 +4067,7 @@ const recipes = [
       }
     ],
     "tips": "米饭最好用隔夜饭口感更好，芝士要用马苏里拉才能拉丝，烤的时间不要太久以免芝士烤干。",
-    "videoUrl": "",
+    "videoUrl": "https://www.xiaohongshu.com/explore/68a3ed69000000001d03a52d",
     "cover": ""
   }
 ]

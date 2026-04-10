@@ -30,7 +30,7 @@
 
   <!-- 菜谱列表 -->
   <view class="recipe-list" wx:if="{{!loading && !empty}}">
-    <view class="recipe-card" wx:for="{{recipes}}" wx:key="id" bindtap="goToDetail" data-id="{{item._id || item.id}}" data-source="{{item.source || ''}}">
+    <view class="recipe-card" wx:for="{{recipes}}" wx:key="_id" bindtap="goToDetail" data-id="{{item.id}}" data-dbid="{{item._id}}" data-source="{{item.source || ''}}">
       <!-- 匹配度标签 -->
       <view class="match-badge {{item.matchRate >= 80 ? 'match-high' : item.matchRate >= 50 ? 'match-mid' : 'match-low'}}">
         匹配 {{item.matchRate}}%

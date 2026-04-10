@@ -317,6 +317,10 @@
   height: 160rpx;
 }
 
+.bottom-placeholder-expanded {
+  height: 240rpx;
+}
+
 /* 快速添加按钮样式 */
 .chip-add {
   background: transparent !important;

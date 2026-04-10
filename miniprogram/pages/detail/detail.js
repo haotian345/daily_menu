@@ -3,103 +3,109 @@ const recipesData = require('../../data/recipes.js')
 Page({
   data: {
     recipe: null,
-    loading: true,
+    loading: false,  // 默认不显示 loading，有缓存时直接渲染
     notFound: false,
     source: '',
     isCustom: false
   },
 
   onLoad(options) {
+    const dbId = options.dbid ? decodeURIComponent(options.dbid) : ''
     const id = parseInt(options.id)
+    const rawId = options.id
     this.setData({ source: options.source || '' })
 
     if (options.fromRandom === 'true') {
-      this.loadFromGlobal(id)
+      this.loadFromGlobal(id, dbId)
     } else if (options.source === 'custom') {
-      this.loadCustomRecipe(options.id)
+      this.loadCustomRecipe(dbId || rawId)
     } else {
-      this.loadRecipe(id)
+      this.loadRecipe(id, dbId)
     }
   },
 
   /** 加载菜谱详情 */
-  loadRecipe(id) {
-    wx.showLoading({ title: '加载中...' })
-
-    // 先尝试从全局获取
-    const globalRecipe = getApp().globalData.currentRecipe
-    if (globalRecipe && globalRecipe.id === id) {
-      wx.hideLoading()
-      this.setData({
-        recipe: globalRecipe,
-        loading: false
-      })
+  loadRecipe(id, dbId) {
+    // 第一步：同步检查 globalData 缓存，命中则直接渲染，完全不显示 loading
+    const app = getApp()
+    const globalRecipe = app.globalData.currentRecipe
+    const globalDbId = app.globalData.currentRecipeDbId || ''
+    const idMatch = globalRecipe && (
+      (dbId && globalDbId === dbId) ||
+      (!dbId && globalRecipe.id === id)
+    )
+    if (idMatch) {
+      this.setData({ recipe: globalRecipe, loading: false })
       wx.setNavigationBarTitle({ title: globalRecipe.name })
       return
     }
 
-    // 尝试云数据库
-    if (wx.cloud) {
+    // 第二步：本地 JSON 数据同步查找
+    const localRecipe = recipesData.find(r => r.id === id)
+    if (localRecipe) {
+      this.setData({ recipe: localRecipe, loading: false })
+      wx.setNavigationBarTitle({ title: localRecipe.name })
+      return
+    }
+
+    // 第三步：以上都没有才走网络请求，此时才显示 loading
+    this.setData({ loading: true })
+    if (dbId && wx.cloud) {
+      this.loadFromCloudByDbId(dbId)
+    } else if (wx.cloud) {
       this.loadFromCloud(id)
     } else {
-      this.loadFromLocal(id)
+      this.setData({ loading: false, notFound: true })
     }
   },
 
-  /** 从全局数据加载 */
-  loadFromGlobal(id) {
-    const globalRecipe = getApp().globalData.currentRecipe
-    if (globalRecipe && globalRecipe.id === id) {
+  /** 从全局数据加载（随机推荐场景） */
+  loadFromGlobal(id, dbId) {
+    const app = getApp()
+    const globalRecipe = app.globalData.currentRecipe
+    const globalDbId = app.globalData.currentRecipeDbId || ''
+    const idMatch = globalRecipe && (
+      (dbId && globalDbId === dbId) ||
+      (!dbId && globalRecipe.id === id)
+    )
+    if (idMatch) {
       this.setData({
         recipe: globalRecipe,
         loading: false
       })
       wx.setNavigationBarTitle({ title: globalRecipe.name })
     } else {
-      this.loadRecipe(id)
+      this.loadRecipe(id, dbId)
     }
   },
 
-  /** 从云数据库加载 */
-  loadFromCloud(id) {
-    wx.cloud.callFunction({
-      name: 'getRecipes',
-      data: {
-        action: 'getDetail',
-        data: { id: String(id) }
-      }
-    }).then(res => {
-      wx.hideLoading()
-      if (res.result.code === 200) {
-        this.setData({
-          recipe: res.result.data,
-          loading: false
-        })
-        wx.setNavigationBarTitle({ title: res.result.data.name })
-      } else {
-        this.loadFromLocal(id)
-      }
+  /** 通过云数据库 _id 直接加载（最精确，避免重复记录） */
+  loadFromCloudByDbId(dbId) {
+    const db = wx.cloud.database()
+    db.collection('recipes').doc(dbId).get().then(res => {
+      this.setData({ recipe: res.data, loading: false })
+      wx.setNavigationBarTitle({ title: res.data.name })
     }).catch(() => {
-      this.loadFromLocal(id)
+      // doc(dbId) 查不到时直接显示未找到，无法通过数字 id 回退
+      this.setData({ loading: false, notFound: true })
     })
   },
 
-  /** 从本地数据加载 */
-  loadFromLocal(id) {
-    wx.hideLoading()
-    const recipe = recipesData.find(r => r.id === id)
-    if (recipe) {
-      this.setData({
-        recipe,
-        loading: false
-      })
-      wx.setNavigationBarTitle({ title: recipe.name })
-    } else {
-      this.setData({
-        loading: false,
-        notFound: true
-      })
-    }
+  /** 从云数据库加载（通过数字 id 字段查询） */
+  loadFromCloud(id) {
+    wx.cloud.callFunction({
+      name: 'getRecipes',
+      data: { action: 'getDetail', data: { id: id } }
+    }).then(res => {
+      if (res.result.code === 200) {
+        this.setData({ recipe: res.result.data, loading: false })
+        wx.setNavigationBarTitle({ title: res.result.data.name })
+      } else {
+        this.setData({ loading: false, notFound: true })
+      }
+    }).catch(() => {
+      this.setData({ loading: false, notFound: true })
+    })
   },
 
   /** 复制食材清单 */
@@ -132,32 +138,32 @@ Page({
 
   /** 加载自定义菜谱 */
   loadCustomRecipe(id) {
-    wx.showLoading({ title: '加载中...' })
+    // 先查 globalData 缓存（自定义菜谱也可能已缓存）
+    const app = getApp()
+    const globalRecipe = app.globalData.currentRecipe
+    const globalDbId = app.globalData.currentRecipeDbId || ''
+    if (globalRecipe && (globalDbId === id || String(globalRecipe._id) === String(id))) {
+      this.setData({ recipe: globalRecipe, loading: false, isCustom: true })
+      wx.setNavigationBarTitle({ title: globalRecipe.name })
+      return
+    }
+
+    this.setData({ loading: true })
     if (wx.cloud) {
       wx.cloud.callFunction({
         name: 'getRecipes',
-        data: {
-          action: 'getCustomDetail',
-          data: { id: id }
-        }
+        data: { action: 'getCustomDetail', data: { id: id } }
       }).then(res => {
-        wx.hideLoading()
         if (res.result.code === 200) {
-          this.setData({
-            recipe: res.result.data,
-            loading: false,
-            isCustom: true
-          })
+          this.setData({ recipe: res.result.data, loading: false, isCustom: true })
           wx.setNavigationBarTitle({ title: res.result.data.name })
         } else {
           this.setData({ loading: false, notFound: true })
         }
       }).catch(() => {
-        wx.hideLoading()
         this.setData({ loading: false, notFound: true })
       })
     } else {
-      wx.hideLoading()
       this.setData({ loading: false, notFound: true })
     }
   },

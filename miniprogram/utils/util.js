@@ -44,45 +44,62 @@ function calcMatchRate(selected, required) {
  * @returns {Array} 匹配的菜谱，按匹配度排序
  */
 function filterRecipes(recipes, ingredients, cookware) {
-  let results = recipes.map(recipe => {
-    let ingredientMatch = 0
-    let cookwareMatch = false
+  const hasIngredients = ingredients && ingredients.length > 0
+  const hasCookware = cookware && cookware.length > 0
 
-    // 计算食材匹配度
-    if (ingredients && ingredients.length > 0) {
-      let matchCount = 0
-      recipe.ingredients.forEach(ri => {
-        if (ingredients.some(si => si === ri.name)) {
-          matchCount++
+  // 无任何筛选条件时，返回全部菜谱（匹配率统一显示为 100）
+  if (!hasIngredients && !hasCookware) {
+    return recipes.map(r => ({ ...r, matchRate: 100 }))
+  }
+
+  let results = recipes.map(recipe => {
+    let ingredientMatchCount = 0
+    let cookwareMatchCount = 0
+
+    // 计算食材命中数量（用户选的食材中有几个在菜谱里出现）
+    if (hasIngredients) {
+      const recipeIngredientNames = (recipe.ingredients || []).map(ri =>
+        typeof ri === 'object' ? ri.name : ri
+      )
+      ingredients.forEach(si => {
+        if (recipeIngredientNames.includes(si)) {
+          ingredientMatchCount++
         }
       })
-      ingredientMatch = matchCount / recipe.ingredients.length
     }
 
-    // 检查锅具匹配
-    if (cookware && cookware.length > 0) {
-      cookwareMatch = recipe.cookware.some(rc => cookware.includes(rc))
+    // 计算锅具命中数量（用户选的锅具中有几个在菜谱里出现）
+    if (hasCookware) {
+      const recipeCookware = recipe.cookware || []
+      cookware.forEach(cw => {
+        if (recipeCookware.includes(cw)) {
+          cookwareMatchCount++
+        }
+      })
     }
 
-    // 综合得分
-    let score = 0
-    if (ingredients.length > 0 && cookware.length > 0) {
-      score = ingredientMatch * 0.7 + (cookwareMatch ? 0.3 : 0)
-    } else if (ingredients.length > 0) {
-      score = ingredientMatch
-    } else if (cookware.length > 0) {
-      score = cookwareMatch ? 1 : 0
+    // 筛选规则：
+    // - 选了食材 → 菜谱中必须至少有1个选中的食材，否则排除
+    // - 选了锅具 → 菜谱必须用到至少1个选中的锅具，否则排除
+    // - 两者都选 → 必须同时满足
+    if (hasIngredients && ingredientMatchCount === 0) {
+      return null
+    }
+    if (hasCookware && cookwareMatchCount === 0) {
+      return null
     }
 
-    return {
-      ...recipe,
-      matchRate: Math.round(score * 100)
-    }
+    // 匹配率 = 命中的选中项数（食材命中数 + 锅具命中数）/ 用户选中的总项数
+    const totalSelected = (hasIngredients ? ingredients.length : 0) + (hasCookware ? cookware.length : 0)
+    const totalHit = ingredientMatchCount + cookwareMatchCount
+    const matchRate = totalSelected > 0 ? Math.round((totalHit / totalSelected) * 100) : 0
+
+    return { ...recipe, matchRate }
   })
 
-  // 过滤掉完全不匹配的
-  results = results.filter(r => r.matchRate > 0)
-  // 按匹配度排序
+  // 过滤掉不满足条件的（null）
+  results = results.filter(r => r !== null)
+  // 按匹配率降序排序
   results.sort((a, b) => b.matchRate - a.matchRate)
 
   return results

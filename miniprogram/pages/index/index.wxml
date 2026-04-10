@@ -105,8 +105,8 @@
     </view>
   </view>
 
-  <!-- 底部占位 -->
-  <view class="bottom-placeholder"></view>
+  <!-- 底部占位（高度随选择状态变化，防止 fixed bottom-bar 遮住锅具） -->
+  <view class="bottom-placeholder {{hasSelection ? 'bottom-placeholder-expanded' : ''}}"></view>
 
   <!-- 快速添加食材弹窗 -->
   <view class="modal-mask" wx:if="{{showAddIngredient}}" bindtap="hideQuickAddIngredient"></view>

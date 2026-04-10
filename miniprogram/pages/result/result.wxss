@@ -143,11 +143,13 @@
   box-shadow: 0 4rpx 16rpx rgba(255, 107, 53, 0.08);
   position: relative;
   overflow: hidden;
+  /* transition 放在正常态，松开时才有回弹动画 */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .recipe-card:active {
-  transform: scale(0.98);
-  transition: transform 0.1s;
+  transform: scale(0.97);
+  box-shadow: 0 2rpx 8rpx rgba(255, 107, 53, 0.12);
 }
 
 /* 匹配度标签 */

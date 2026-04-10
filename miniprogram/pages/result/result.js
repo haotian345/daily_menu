@@ -48,10 +48,21 @@ Page({
     }).then(res => {
       wx.hideLoading()
       if (res.result.code === 200) {
-        const list = res.result.data.list
+        // 云函数合并了 recipes + custom_recipes，按业务 id（而非 _id）去重
+        // 同一道菜在数据库可能有多条重复记录（_id 不同但 id 相同），需用 id 去重
+        const rawList = res.result.data.list
+        const seen = new Set()
+        const deduped = rawList.filter(r => {
+          const key = r.id != null ? String(r.id) : r._id  // 优先用业务 id
+          if (seen.has(key)) return false
+          seen.add(key)
+          return true
+        })
+        // 客户端再次过滤：防止云函数版本与客户端逻辑不一致时漏过不符合条件的结果
+        const list = filterRecipes(deduped, ingredients, cookware)
         this.setData({
           recipes: list,
-          totalCount: res.result.data.total,
+          totalCount: list.length,
           loading: false,
           empty: list.length === 0
         })
@@ -79,17 +90,23 @@ Page({
   /** 跳转到菜谱详情 */
   goToDetail(e) {
     const id = e.currentTarget.dataset.id
+    const dbId = e.currentTarget.dataset.dbid || ''
     const source = e.currentTarget.dataset.source || ''
-    const recipe = this.data.recipes.find(r => (String(r.id) === String(id) || String(r._id) === String(id)))
+    // 优先通过 _id（云数据库真实主键）匹配，找不到再比较 id
+    const recipe = this.data.recipes.find(r => r._id === dbId) ||
+                   this.data.recipes.find(r => r.id === id)
 
     if (recipe) {
-      // 将菜谱数据存到全局，方便详情页获取
+      // 将完整菜谱数据存到全局，详情页直接使用，避免 id 不匹配问题
       getApp().globalData.currentRecipe = recipe
+      getApp().globalData.currentRecipeDbId = recipe._id || ''
     }
 
+    // 优先用 _id 传递（云数据库记录的唯一主键），避免重复记录时取错
+    const idParam = dbId ? `dbid=${encodeURIComponent(dbId)}` : `id=${id}`
     const url = source === 'custom'
-      ? `/pages/detail/detail?id=${id}&source=custom`
-      : `/pages/detail/detail?id=${id}`
+      ? `/pages/detail/detail?${idParam}&source=custom`
+      : `/pages/detail/detail?${idParam}`
 
     wx.navigateTo({ url })
   },
