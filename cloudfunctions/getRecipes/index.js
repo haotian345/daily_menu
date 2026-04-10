@@ -3,6 +3,14 @@ const cloud = require('wx-server-sdk')
 
 cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV })
 
+// 被视为家庭常备调料的用量关键词，不计入「缺少」
+const PANTRY_AMOUNTS = ['适量', '少许', '少量', '适当']
+
+function isPantry(ingredient) {
+  const amount = typeof ingredient === 'object' ? (ingredient.amount || '') : ''
+  return PANTRY_AMOUNTS.some(kw => amount.includes(kw))
+}
+
 const db = cloud.database()
 
 // 云函数入口函数
@@ -74,51 +82,51 @@ async function searchRecipes(data) {
       return true
     })
 
-    // 筛选 + 计算匹配率
+    // 筛选 + 计算匹配度
     let results = allRecipes.map(recipe => {
-      let ingredientMatchCount = 0
+      const allIngredients = recipe.ingredients || []
+
+      // 拆分主料 vs 常备调料
+      const mainNames   = allIngredients.filter(i => !isPantry(i)).map(i => typeof i === 'object' ? i.name : i)
+      const pantryNames = allIngredients.filter(i =>  isPantry(i)).map(i => typeof i === 'object' ? i.name : i)
+      const allNames    = [...mainNames, ...pantryNames]
+
+      // 锅具命中数
       let cookwareMatchCount = 0
-
-      // 计算食材命中数量（用户选中的食材中有几个在菜谱里）
-      if (hasIngredients) {
-        const recipeIngredientNames = (recipe.ingredients || []).map(i =>
-          typeof i === 'object' ? i.name : i
-        )
-        ingredients.forEach(selected => {
-          if (recipeIngredientNames.includes(selected)) {
-            ingredientMatchCount++
-          }
-        })
-      }
-
-      // 计算锅具命中数量（用户选中的锅具中有几个在菜谱里）
       if (hasCookware) {
         const recipeCookware = recipe.cookware || []
-        cookware.forEach(cw => {
-          if (recipeCookware.includes(cw)) {
-            cookwareMatchCount++
-          }
-        })
+        cookware.forEach(cw => { if (recipeCookware.includes(cw)) cookwareMatchCount++ })
       }
 
-      // 筛选规则：
-      // - 选了食材 → 菜谱中必须至少有1个选中的食材，否则排除
-      // - 选了锅具 → 菜谱必须用到至少1个选中的锅具，否则排除
-      // - 两者都选 → 必须同时满足
-      if (hasIngredients && ingredientMatchCount === 0) return null
       if (hasCookware && cookwareMatchCount === 0) return null
 
-      // 匹配率 = 命中的选中项数（食材命中数 + 锅具命中数）/ 用户选中的总项数
-      const totalSelected = (hasIngredients ? ingredients.length : 0) + (hasCookware ? cookware.length : 0)
-      const totalHit = ingredientMatchCount + cookwareMatchCount
-      const matchRate = totalSelected > 0 ? Math.round((totalHit / totalSelected) * 100) : 0
+      if (hasIngredients) {
+        // utilization：用户选的食材有几个在菜谱中出现
+        const utilization = ingredients.filter(si => allNames.includes(si)).length
+        if (utilization === 0) return null
 
-      return { ...recipe, matchRate }
+        // missingCount：菜谱主料中用户没有的数量
+        const missingCount = mainNames.filter(name => !ingredients.includes(name)).length
+
+        // matchRate：用户拥有的主料占比
+        const matchRate = mainNames.length > 0
+          ? Math.round(((mainNames.length - missingCount) / mainNames.length) * 100)
+          : 100
+
+        return { ...recipe, matchRate, missingCount, utilization }
+      }
+
+      // 只选了锅具没选食材
+      return { ...recipe, matchRate: 100, missingCount: 0, utilization: 0 }
     })
 
-    // 过滤不满足的，按匹配率降序
     results = results.filter(r => r !== null)
-    results.sort((a, b) => b.matchRate - a.matchRate)
+    // 排序：缺少主料越少越前；缺少数相同时用上食材越多越前；再按 matchRate
+    results.sort((a, b) => {
+      if (a.missingCount !== b.missingCount) return a.missingCount - b.missingCount
+      if (b.utilization !== a.utilization)   return b.utilization - a.utilization
+      return b.matchRate - a.matchRate
+    })
 
     return {
       code: 200,
